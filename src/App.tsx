@@ -5,12 +5,6 @@ import ProductList from './components/ProductList/ProductList';
 import AddProductForm from './components/AddProductForm/AddProductForm';
 import type { ProductProps } from './types/product';
 
-// const products = [
-//     { name: 'Laptop', quantity: 10 },
-//     { name: 'Mysz', quantity: 25 },
-//     { name: 'Klawiatura', quantity: 15 },
-// ];
-
 function App() {
     const [products, setProducts] = useState<ProductProps[]>([
         { name: 'Laptop', quantity: 10 },
@@ -29,11 +23,17 @@ function App() {
         });
     };
 
+    const onEditProduct = (product: ProductProps) => {
+        setProducts((prevProducts) =>
+            prevProducts.map((p) => (p.name.toLowerCase() === product.name.toLowerCase() ? product : p)),
+        );
+    };
+
     return (
         <>
             <Header />
             <main>
-                <ProductList products={products} />
+                <ProductList products={products} onEditProduct={onEditProduct} />
                 <AddProductForm onAddProduct={onAddProduct} />
             </main>
         </>

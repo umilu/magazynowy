@@ -5,12 +5,19 @@ export interface ProductProps {
 
 export interface ProductItemProps {
     product: ProductProps;
+    onEditProduct: (product: ProductProps) => void;
 }
 
 export interface ProductListProps {
     products: ProductProps[];
+    onEditProduct: (product: ProductProps) => void;
 }
 
 export interface AddProductFormProps {
     onAddProduct: (product: ProductProps) => void;
+}
+
+export interface EditProductFormProps {
+    product: ProductProps;
+    onSaveProduct: (product: ProductProps) => void;
 }
