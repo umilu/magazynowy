@@ -6,6 +6,7 @@ import EditProductForm from '../EditProductForm/EditProductForm';
 function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListProps) {
     const [editingProduct, setEditingProduct] = useState<ProductProps | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
     function handleEditProduct(product: ProductProps) {
         setEditingProduct(product);
@@ -24,7 +25,11 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
         p.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
-    const listProducts = filteredProducts.map((product, index) => {
+    const sortedProducts = [...filteredProducts].sort((a, b) =>
+        sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+    );
+
+    const listProducts = sortedProducts.map((product, index) => {
         return (
             <ProductItem
                 key={index}
@@ -43,6 +48,9 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <button type="button" onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+                Sortuj {sortOrder === 'asc' ? 'malejąco' : 'rosnąco'}
+            </button>
             {editingProduct && <p>Edytujemy: {editingProduct.name}</p>}
             {filteredProducts.length > 0 ? (
                 listProducts
