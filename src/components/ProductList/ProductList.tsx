@@ -5,6 +5,8 @@ import EditProductForm from '../EditProductForm/EditProductForm';
 
 function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListProps) {
     const [editingProduct, setEditingProduct] = useState<ProductProps | null>(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
     function handleEditProduct(product: ProductProps) {
         setEditingProduct(product);
     }
@@ -18,7 +20,11 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
         onDeleteProduct(product);
     }
 
-    const listProducts = products.map((product, index) => {
+    const filteredProducts = products.filter((p) =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+
+    const listProducts = filteredProducts.map((product, index) => {
         return (
             <ProductItem
                 key={index}
@@ -31,9 +37,23 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
 
     return (
         <div>
+            <input
+                type="search"
+                placeholder="Szukaj produktu..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
             {editingProduct && <p>Edytujemy: {editingProduct.name}</p>}
-            {listProducts}
-            {editingProduct && <EditProductForm product={editingProduct} onSaveProduct={handleSaveProduct} />}
+            {filteredProducts.length > 0 ? (
+                listProducts
+            ) : products.length === 0 ? (
+                <p>Brak produktów</p>
+            ) : (
+                <p>Brak pasujących wyników</p>
+            )}
+            {editingProduct && (
+                <EditProductForm product={editingProduct} onSaveProduct={handleSaveProduct} />
+            )}
         </div>
     );
 }
