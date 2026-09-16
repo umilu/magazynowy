@@ -6,11 +6,13 @@ export interface ProductProps {
 export interface ProductItemProps {
     product: ProductProps;
     onEditProduct: (product: ProductProps) => void;
+    onDeleteProduct: (product: ProductProps) => void;
 }
 
 export interface ProductListProps {
     products: ProductProps[];
     onEditProduct: (product: ProductProps) => void;
+    onDeleteProduct: (product: ProductProps) => void;
 }
 
 export interface AddProductFormProps {

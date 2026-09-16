@@ -12,28 +12,42 @@ function App() {
         { name: 'Klawiatura', quantity: 15 },
     ]);
 
-    const onAddProduct = (product: ProductProps) => {
+    function onAddProduct(product: ProductProps) {
         setProducts((prevProducts) => {
-            const exists = prevProducts.some((p) => p.name.toLowerCase() === product.name.toLowerCase());
+            const exists = prevProducts.some(
+                (p) => p.name.toLowerCase() === product.name.toLowerCase(),
+            );
             if (exists) {
                 return prevProducts;
             }
 
             return [...prevProducts, product];
         });
-    };
+    }
 
-    const onEditProduct = (product: ProductProps) => {
+    function onEditProduct(product: ProductProps) {
         setProducts((prevProducts) =>
-            prevProducts.map((p) => (p.name.toLowerCase() === product.name.toLowerCase() ? product : p)),
+            prevProducts.map((p) =>
+                p.name.toLowerCase() === product.name.toLowerCase() ? product : p,
+            ),
         );
-    };
+    }
+
+    function onDeleteProduct(product: ProductProps) {
+        setProducts((prevProducts) =>
+            prevProducts.filter((p) => p.name.toLowerCase() !== product.name.toLowerCase()),
+        );
+    }
 
     return (
         <>
             <Header />
             <main>
-                <ProductList products={products} onEditProduct={onEditProduct} />
+                <ProductList
+                    products={products}
+                    onEditProduct={onEditProduct}
+                    onDeleteProduct={onDeleteProduct}
+                />
                 <AddProductForm onAddProduct={onAddProduct} />
             </main>
         </>
