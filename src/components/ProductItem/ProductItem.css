@@ -1,0 +1,27 @@
+.product-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+.product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.stock-available {
+    color: green;
+}
+
+.stock-low {
+    color: orange;
+}
+
+.stock-empty {
+    color: red;
+}

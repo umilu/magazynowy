@@ -2,6 +2,7 @@ import ProductItem from '../ProductItem/ProductItem';
 import type { ProductListProps, ProductProps } from '../../types/product';
 import { useState } from 'react';
 import EditProductForm from '../EditProductForm/EditProductForm';
+import './ProductList.css';
 
 function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListProps) {
     const [editingProduct, setEditingProduct] = useState<ProductProps | null>(null);
@@ -41,17 +42,21 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
     });
 
     return (
-        <div>
-            <input
-                type="search"
-                placeholder="Szukaj produktu..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button type="button" onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
-                Sortuj {sortOrder === 'asc' ? 'malejąco' : 'rosnąco'}
-            </button>
-            {editingProduct && <p>Edytujemy: {editingProduct.name}</p>}
+        <div className="product-list">
+            <div className="product-list-controls">
+                <input
+                    type="search"
+                    placeholder="Szukaj produktu..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button
+                    type="button"
+                    onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                >
+                    Sortuj {sortOrder === 'asc' ? 'malejąco' : 'rosnąco'}
+                </button>
+            </div>
             {filteredProducts.length > 0 ? (
                 listProducts
             ) : products.length === 0 ? (
@@ -59,6 +64,7 @@ function ProductList({ products, onEditProduct, onDeleteProduct }: ProductListPr
             ) : (
                 <p>Brak pasujących wyników</p>
             )}
+            {editingProduct && <p>Edytujemy: {editingProduct.name}</p>}
             {editingProduct && (
                 <EditProductForm product={editingProduct} onSaveProduct={handleSaveProduct} />
             )}

@@ -1,0 +1,21 @@
+.product-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    gap: 16px;
+    margin: 0 auto;
+}
+
+.product-list-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.product-list-controls input {
+    flex: 1;
+}
+
+.product-list-controls button {
+    padding: 8px 16px;
+}
