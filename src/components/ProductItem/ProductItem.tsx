@@ -1,7 +1,11 @@
 import type { ProductItemProps } from '../../types/product';
 import './ProductItem.css';
 
-function ProductItem({ product, onEditProduct, onDeleteProduct }: ProductItemProps) {
+function ProductItem({
+    product,
+    onSelectProductForEdit,
+    onSelectProductForDelete,
+}: ProductItemProps) {
     const stockStatus =
         product.quantity <= 0
             ? 'Brak w magazynie'
@@ -26,10 +30,10 @@ function ProductItem({ product, onEditProduct, onDeleteProduct }: ProductItemPro
                 </span>
             </p>
             <div className="product-actions">
-                <button type="button" onClick={() => onEditProduct(product)}>
+                <button type="button" onClick={() => onSelectProductForEdit(product)}>
                     Edytuj
                 </button>
-                <button type="button" onClick={() => onDeleteProduct(product)}>
+                <button type="button" onClick={() => onSelectProductForDelete(product)}>
                     Usuń
                 </button>
             </div>

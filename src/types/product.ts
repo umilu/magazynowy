@@ -5,21 +5,38 @@ export interface ProductProps {
 
 export interface ProductItemProps {
     product: ProductProps;
-    onEditProduct: (product: ProductProps) => void;
-    onDeleteProduct: (product: ProductProps) => void;
+    onSelectProductForEdit: (product: ProductProps) => void;
+    onSelectProductForDelete: (product: ProductProps) => void;
 }
 
 export interface ProductListProps {
     products: ProductProps[];
-    onEditProduct: (product: ProductProps) => void;
-    onDeleteProduct: (product: ProductProps) => void;
+    allProducts: ProductProps[];
+    onSelectProductForEdit: (product: ProductProps) => void;
+    onSelectProductForDelete: (product: ProductProps) => void;
 }
 
 export interface AddProductFormProps {
     onAddProduct: (product: ProductProps) => void;
 }
 
-export interface EditProductFormProps {
-    product: ProductProps;
-    onSaveProduct: (product: ProductProps) => void;
+export interface SearchProductFormProps {
+    searchTerm: string;
+    setSearchTerm: (term: string) => void;
+    sortOrder: 'asc' | 'desc';
+    setSortOrder: (sortOrder: 'asc' | 'desc') => void;
+}
+
+export interface ProductActionsFormProps {
+    onSubmit: (product: ProductProps) => void;
+    buttonText: 'dodaj produkt' | 'zapisz produkt' | undefined;
+    selectedProduct: ProductProps | null;
+}
+
+export interface ActionsModalProps {
+    onSubmit: (product: ProductProps) => void;
+    actionState: 'add' | 'edit' | 'delete' | null;
+    selectedProduct: ProductProps | null;
+    onDelete: () => void;
+    onActionCancel: () => void;
 }
