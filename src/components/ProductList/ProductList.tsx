@@ -1,6 +1,5 @@
 import ProductItem from '../ProductItem/ProductItem';
 import type { ProductListProps } from '../../types/product';
-// import { useState } from 'react';
 import './ProductList.css';
 
 function ProductList({

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ProductActionsFormProps } from '../../types/product';
+import './ProductActionsForm.css';
 
 function ProductActionsForm({ onSubmit, buttonText, selectedProduct }: ProductActionsFormProps) {
     const [productName, setProductName] = useState(selectedProduct ? selectedProduct.name : '');
@@ -21,23 +22,34 @@ function ProductActionsForm({ onSubmit, buttonText, selectedProduct }: ProductAc
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="productName">Nazwa produktu:</label>
-            <input
-                ref={productNameInputRef}
-                type="text"
-                id="productName"
-                value={productName}
-                onChange={(event) => setProductName(event.target.value)}
-            />
-            <label htmlFor="quantity">Ilość:</label>
-            <input
-                type="number"
-                id="quantity"
-                value={quantity}
-                onChange={(event) => setQuantity(Number(event.target.value))}
-            />
-            <button type="submit">{buttonText}</button>
+        <form className="product-actions-form" onSubmit={handleSubmit}>
+            <div className="form-field">
+                <label htmlFor="productName">Nazwa produktu:</label>
+                <input
+                    ref={productNameInputRef}
+                    type="text"
+                    id="productName"
+                    value={productName}
+                    onChange={(event) => setProductName(event.target.value)}
+                />
+            </div>
+            <div className="form-field">
+                <label htmlFor="quantity">Ilość:</label>
+                <input
+                    type="number"
+                    id="quantity"
+                    value={quantity}
+                    onChange={(event) => setQuantity(event.target.value)}
+                />
+            </div>
+            <div className="form-actions">
+                <button className="white-button" type="button">
+                    Anuluj
+                </button>
+                <button className="blue-button" type="submit">
+                    {buttonText}
+                </button>
+            </div>
         </form>
     );
 }

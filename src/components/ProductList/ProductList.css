@@ -1,21 +1,10 @@
 .product-list {
     display: flex;
     flex-direction: column;
-    max-width: 700px;
-    gap: 16px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    width: 100%;
     margin: 0 auto;
-}
-
-.product-list-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.product-list-controls input {
-    flex: 1;
-}
-
-.product-list-controls button {
-    padding: 8px 16px;
+    overflow: hidden;
 }

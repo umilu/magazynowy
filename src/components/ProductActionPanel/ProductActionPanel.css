@@ -1,0 +1,29 @@
+.actions-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 20px clamp(10px, 4vw, 20px);
+    width: 400px;
+    margin: 0 auto;
+}
+
+.actions-panel button {
+    display: block;
+}
+
+.panel-close-button {
+    background-color: inherit;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel-header h3 {
+    margin: 0;
+}

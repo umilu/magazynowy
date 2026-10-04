@@ -1,18 +1,33 @@
-import type { ActionsModalProps } from '../../types/product';
+import type { ProductActionPanelProps } from '../../types/product';
 import ProductActionsForm from '../ProductActionsForm/ProductActionsForm';
+import './ProductActionPanel.css';
 
-function ActionsModal({
+function ProductActionPanel({
     onActionCancel,
     onDelete,
     onSubmit,
     actionState,
     selectedProduct,
-}: ActionsModalProps) {
+}: ProductActionPanelProps) {
     return (
-        <div>
-            <button type="button" onClick={onActionCancel} aria-label="Zamknij">
-                X
-            </button>
+        <div className="actions-panel">
+            <div className="panel-header">
+                <h3>
+                    {actionState === 'add'
+                        ? 'Dodaj produkt'
+                        : actionState === 'edit'
+                          ? 'Edytuj produkt'
+                          : 'Usuń produkt'}
+                </h3>
+                <button
+                    className="panel-close-button"
+                    type="button"
+                    onClick={onActionCancel}
+                    aria-label="Zamknij formularz"
+                >
+                    X
+                </button>
+            </div>
             {actionState === 'delete' ? (
                 <>
                     <p>Czy chcesz usunąć {selectedProduct && selectedProduct.name}?</p>
@@ -29,9 +44,9 @@ function ActionsModal({
                     onSubmit={onSubmit}
                     buttonText={
                         actionState === 'add'
-                            ? 'dodaj produkt'
+                            ? 'Dodaj'
                             : actionState === 'edit'
-                              ? 'zapisz produkt'
+                              ? 'Zapisz'
                               : undefined
                     }
                 />
@@ -39,4 +54,4 @@ function ActionsModal({
         </div>
     );
 }
-export default ActionsModal;
+export default ProductActionPanel;

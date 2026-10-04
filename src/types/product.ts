@@ -29,11 +29,11 @@ export interface SearchProductFormProps {
 
 export interface ProductActionsFormProps {
     onSubmit: (product: ProductProps) => void;
-    buttonText: 'dodaj produkt' | 'zapisz produkt' | undefined;
+    buttonText: 'Dodaj' | 'Zapisz' | undefined;
     selectedProduct: ProductProps | null;
 }
 
-export interface ActionsModalProps {
+export interface ProductActionPanelProps {
     onSubmit: (product: ProductProps) => void;
     actionState: 'add' | 'edit' | 'delete' | null;
     selectedProduct: ProductProps | null;

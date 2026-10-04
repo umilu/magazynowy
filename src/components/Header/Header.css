@@ -1,0 +1,14 @@
+header {
+    background-color: #1f2937;
+    padding: 20px 32px;
+    margin: 0 0 24px 0;
+}
+
+header h1 {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}

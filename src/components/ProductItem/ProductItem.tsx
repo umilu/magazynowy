@@ -15,20 +15,21 @@ function ProductItem({
 
     return (
         <div className="product-item">
-            <p>
-                {product.name} - {product.quantity} szt.{' '}
+            <div className="product-info">
+                <p>{product.name}</p>
+                <span className="product-item-quantity">Ilość: {product.quantity}</span>
                 <span
-                    className={
+                    className={`product-item-stock ${
                         stockStatus === 'Brak w magazynie'
                             ? 'stock-empty'
                             : stockStatus === 'Niski stan magazynowy'
                               ? 'stock-low'
                               : 'stock-available'
-                    }
+                    }`}
                 >
-                    {stockStatus}
+                    <span>{stockStatus}</span>
                 </span>
-            </p>
+            </div>
             <div className="product-actions">
                 <button type="button" onClick={() => onSelectProductForEdit(product)}>
                     Edytuj

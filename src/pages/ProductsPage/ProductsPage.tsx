@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { ProductProps } from '../../types/product';
 import ProductList from '../../components/ProductList/ProductList';
-import ActionsModal from '../../components/ActionsModal/ActionsModal';
+import ProductActionPanel from '../../components/ProductActionPanel/ProductActionPanel';
 import SearchProductForm from '../../components/SearchProductForm/SearchProductForm';
+import './ProductsPage.css';
 
 function ProductsPage() {
     const [products, setProducts] = useState<ProductProps[]>([
@@ -21,7 +22,7 @@ function ProductsPage() {
     }
 
     function handleAddProduct(addedProduct: ProductProps) {
-        if (addedProduct.name === '') {
+        if (normalizeProductName(addedProduct.name) === '') {
             return;
         }
         if (addedProduct.quantity <= 0 || Number.isNaN(addedProduct.quantity)) {
@@ -49,21 +50,24 @@ function ProductsPage() {
     }
 
     function handleUpdateProduct(updatedProduct: ProductProps) {
+        if (!selectedProduct) {
+            return;
+        }
         if (
             products.some(
                 (p) => normalizeProductName(p.name) === normalizeProductName(updatedProduct.name),
-            )
+            ) &&
+            normalizeProductName(selectedProduct.name) !== normalizeProductName(updatedProduct.name)
         ) {
             return;
         }
-        selectedProduct &&
-            setProducts((prevProducts) =>
-                prevProducts.map((p) =>
-                    p.name.toLowerCase() === selectedProduct.name.toLowerCase()
-                        ? updatedProduct
-                        : p,
-                ),
-            );
+        setProducts((prevProducts) =>
+            prevProducts.map((p) =>
+                normalizeProductName(p.name) === normalizeProductName(selectedProduct.name)
+                    ? updatedProduct
+                    : p,
+            ),
+        );
         setSelectedProduct(null);
         setActionState(null);
     }
@@ -77,7 +81,8 @@ function ProductsPage() {
         selectedProduct &&
             setProducts((prevProducts) =>
                 prevProducts.filter(
-                    (p) => p.name.toLowerCase() !== selectedProduct.name.toLowerCase(),
+                    (p) =>
+                        normalizeProductName(p.name) !== normalizeProductName(selectedProduct.name),
                 ),
             );
         setSelectedProduct(null);
@@ -90,7 +95,7 @@ function ProductsPage() {
     }
 
     const filteredProducts = products.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        normalizeProductName(p.name).includes(normalizeProductName(searchTerm)),
     );
 
     const sortedProducts = [...filteredProducts].sort((a, b) =>
@@ -99,6 +104,10 @@ function ProductsPage() {
 
     return (
         <main>
+            <section className="products-intro">
+                <h2>Produkty</h2>
+                <p>Zarządzaj swoim magazynem - dodawaj, edytuj, usuwaj swoje produkty.</p>
+            </section>
             <div className="products-controls">
                 <SearchProductForm
                     searchTerm={searchTerm}
@@ -106,8 +115,8 @@ function ProductsPage() {
                     setSortOrder={setSortOrder}
                     setSearchTerm={setSearchTerm}
                 />
-                <button type="button" onClick={() => setActionState('add')}>
-                    Dodaj produkt
+                <button className="blue-button" type="button" onClick={() => setActionState('add')}>
+                    + Dodaj produkt
                 </button>
             </div>
             <ProductList
@@ -117,7 +126,7 @@ function ProductsPage() {
                 onSelectProductForDelete={handleSelectProductForDelete}
             />
             {actionState && (
-                <ActionsModal
+                <ProductActionPanel
                     selectedProduct={selectedProduct}
                     onDelete={handleDeleteProduct}
                     onSubmit={
