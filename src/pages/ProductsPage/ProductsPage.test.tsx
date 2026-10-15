@@ -183,3 +183,20 @@ test('closes the add product panel without adding a product', async () => {
     expect(screen.queryByText('Monitor')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Dodaj produkt' })).not.toBeInTheDocument();
 });
+
+test('updates the edit form when another product is selected for editing', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
+
+    expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
+    expect(screen.getByLabelText('Ilość:')).toHaveValue(10);
+
+    const mouseRow = screen.getByText('Mysz').closest('.product-item') as HTMLElement;
+    await user.click(within(mouseRow).getByRole('button', { name: 'Edytuj' }));
+
+    expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Mysz');
+    expect(screen.getByLabelText('Ilość:')).toHaveValue(25);
+});

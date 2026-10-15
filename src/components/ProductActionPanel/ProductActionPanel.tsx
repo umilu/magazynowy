@@ -40,6 +40,7 @@ function ProductActionPanel({
                 </>
             ) : (
                 <ProductActionsForm
+                    key={selectedProduct?.name}
                     selectedProduct={selectedProduct}
                     onSubmit={onSubmit}
                     buttonText={
