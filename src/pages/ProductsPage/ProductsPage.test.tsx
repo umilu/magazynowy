@@ -102,12 +102,84 @@ test('shows an empty state message when all products are deleted', async () => {
     expect(screen.queryByText('Brak pasujących wyników')).not.toBeInTheDocument();
 });
 
-test('shows a message when searching for product that does not exist', async () => {
+test('shows a message when searching for a product that does not exist', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
     await user.type(screen.getByRole('searchbox'), 'Monitor');
 
-    expect(screen.getByText('Brak pasujących wyników')).toBeInTheDocument()
-    expect(screen.queryByText('Brak produktów')).not.toBeInTheDocument()
+    expect(screen.getByText('Brak pasujących wyników')).toBeInTheDocument();
+    expect(screen.queryByText('Brak produktów')).not.toBeInTheDocument();
+});
+
+test.each([
+    { reason: 'an empty name', name: '', quantity: '5' },
+    { reason: 'an empty quantity', name: 'Monitor', quantity: '' },
+    { reason: 'a negative quantity', name: 'Monitor', quantity: '-1' },
+])('does not add a product with $reason', async ({ name, quantity }) => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+    if (quantity) await user.type(screen.getByLabelText('Ilość:'), quantity);
+    if (name) await user.type(screen.getByLabelText('Nazwa produktu:'), name);
+    await user.click(screen.getByRole('button', { name: 'Dodaj' }));
+
+    expect(screen.getAllByRole('button', { name: 'Edytuj' })).toHaveLength(3);
+    expect(screen.getByRole('heading', { name: 'Dodaj produkt' })).toBeInTheDocument();
+});
+
+test('edits a product quantity using a prefilled form', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
+
+    expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
+    expect(screen.getByLabelText('Ilość:')).toHaveValue(10);
+
+    await user.clear(screen.getByLabelText('Ilość:'));
+    await user.type(screen.getByLabelText('Ilość:'), '11');
+    await user.click(screen.getByRole('button', { name: 'Zapisz' }));
+
+    const updatedRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    expect(within(updatedRow).getByText('Ilość: 11')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Edytuj produkt' })).not.toBeInTheDocument();
+});
+
+test.todo('shows an out of stock status for a product with zero quantity');
+
+test.each([
+    // { reason: 'out of stock', status: 'Brak w magazynie', name: 'Wentylator', quantity: '0' },
+    { reason: 'low stock', status: 'Niski stan magazynowy', name: 'Kamera', quantity: '1' },
+    { reason: 'low stock', status: 'Niski stan magazynowy', name: 'Płyta główna', quantity: '5' },
+    { reason: 'available', status: 'Dostępny', name: 'Touchpad', quantity: '6' },
+])(
+    'shows a $reason status for a product with a $quantity quantity',
+    async ({ status, name, quantity }) => {
+        render(<ProductsPage />);
+        const user = userEvent.setup();
+
+        await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+        await user.type(screen.getByLabelText('Nazwa produktu:'), name);
+        await user.type(screen.getByLabelText('Ilość:'), quantity);
+        await user.click(screen.getByRole('button', { name: 'Dodaj' }));
+
+        const productRow = screen.getByText(name).closest('.product-item') as HTMLElement;
+        expect(within(productRow).getByText(status)).toBeInTheDocument();
+    },
+);
+
+test('closes the add product panel without adding a product', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+    await user.type(screen.getByLabelText('Nazwa produktu:'), 'Monitor');
+    await user.type(screen.getByLabelText('Ilość:'), '9');
+    await user.click(screen.getByRole('button', { name: 'Zamknij formularz' }));
+
+    expect(screen.queryByText('Monitor')).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Dodaj produkt' })).not.toBeInTheDocument();
 });
