@@ -30,7 +30,7 @@ function ProductsPage() {
         if (normalizeProductName(addedProduct.name) === '') {
             return;
         }
-        if (addedProduct.quantity <= 0 || Number.isNaN(addedProduct.quantity)) {
+        if (addedProduct.quantity < 0 || Number.isNaN(addedProduct.quantity)) {
             return;
         }
         if (

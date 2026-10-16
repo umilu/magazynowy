@@ -8,8 +8,10 @@ function ProductActionsForm({
     buttonText,
     selectedProduct,
 }: ProductActionsFormProps) {
-    const [productName, setProductName] = useState(selectedProduct ? selectedProduct.name : '');
-    const [quantity, setQuantity] = useState(selectedProduct ? selectedProduct.quantity : '');
+    const [productName, setProductName] = useState(selectedProduct?.name ?? '');
+    const [quantity, setQuantity] = useState(
+        selectedProduct ? String(selectedProduct.quantity) : '',
+    );
 
     const productNameInputRef = useRef<HTMLInputElement>(null);
 
@@ -21,7 +23,7 @@ function ProductActionsForm({
         e.preventDefault();
         const submittingProduct = {
             name: productName,
-            quantity: Number(quantity),
+            quantity: quantity === '' ? NaN : Number(quantity),
         };
         onSubmit(submittingProduct);
     }

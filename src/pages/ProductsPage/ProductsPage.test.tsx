@@ -148,10 +148,8 @@ test('edits a product quantity using a prefilled form', async () => {
     expect(screen.queryByRole('heading', { name: 'Edytuj produkt' })).not.toBeInTheDocument();
 });
 
-test.todo('shows an out of stock status for a product with zero quantity');
-
 test.each([
-    // { reason: 'out of stock', status: 'Brak w magazynie', name: 'Wentylator', quantity: '0' },
+    { reason: 'out of stock', status: 'Brak w magazynie', name: 'Wentylator', quantity: '0' },
     { reason: 'low stock', status: 'Niski stan magazynowy', name: 'Kamera', quantity: '1' },
     { reason: 'low stock', status: 'Niski stan magazynowy', name: 'Płyta główna', quantity: '5' },
     { reason: 'available', status: 'Dostępny', name: 'Touchpad', quantity: '6' },
