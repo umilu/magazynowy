@@ -21,6 +21,11 @@ function ProductsPage() {
         return name.trim().toLowerCase();
     }
 
+    function handleOpenAddPanel() {
+        setActionState('add');
+        setSelectedProduct(null);
+    }
+
     function handleAddProduct(addedProduct: ProductProps) {
         if (normalizeProductName(addedProduct.name) === '') {
             return;
@@ -115,7 +120,7 @@ function ProductsPage() {
                     setSortOrder={setSortOrder}
                     setSearchTerm={setSearchTerm}
                 />
-                <button className="blue-button" type="button" onClick={() => setActionState('add')}>
+                <button className="blue-button" type="button" onClick={handleOpenAddPanel}>
                     + Dodaj produkt
                 </button>
             </div>

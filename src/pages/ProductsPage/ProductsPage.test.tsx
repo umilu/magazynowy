@@ -200,3 +200,19 @@ test('updates the edit form when another product is selected for editing', async
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Mysz');
     expect(screen.getByLabelText('Ilość:')).toHaveValue(25);
 });
+
+test('clears the form when adding a product during editing', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
+
+    expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
+    expect(screen.getByLabelText('Ilość:')).toHaveValue(10);
+
+    await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+
+    expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('');
+    expect(screen.getByLabelText('Ilość:')).toHaveValue(null);
+});
