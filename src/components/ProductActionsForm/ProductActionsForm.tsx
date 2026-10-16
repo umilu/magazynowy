@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import type { ProductActionsFormProps } from '../../types/product';
 import './ProductActionsForm.css';
 
-function ProductActionsForm({ onSubmit, buttonText, selectedProduct }: ProductActionsFormProps) {
+function ProductActionsForm({
+    onSubmit,
+    onActionCancel,
+    buttonText,
+    selectedProduct,
+}: ProductActionsFormProps) {
     const [productName, setProductName] = useState(selectedProduct ? selectedProduct.name : '');
     const [quantity, setQuantity] = useState(selectedProduct ? selectedProduct.quantity : '');
 
@@ -43,7 +48,7 @@ function ProductActionsForm({ onSubmit, buttonText, selectedProduct }: ProductAc
                 />
             </div>
             <div className="form-actions">
-                <button className="white-button" type="button">
+                <button className="white-button" type="button" onClick={onActionCancel}>
                     Anuluj
                 </button>
                 <button className="blue-button" type="submit">

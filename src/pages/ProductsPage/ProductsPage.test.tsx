@@ -216,3 +216,15 @@ test('clears the form when adding a product during editing', async () => {
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('');
     expect(screen.getByLabelText('Ilość:')).toHaveValue(null);
 });
+
+test('closes panel when clicks cancel', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+    expect(screen.getByRole('heading', { name: 'Dodaj produkt' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Anuluj' }));
+
+    expect(screen.queryByRole('heading', { name: 'Dodaj produkt' })).not.toBeInTheDocument();
+});

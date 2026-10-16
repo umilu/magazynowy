@@ -31,6 +31,7 @@ export interface ProductActionsFormProps {
     onSubmit: (product: ProductProps) => void;
     buttonText: 'Dodaj' | 'Zapisz' | undefined;
     selectedProduct: ProductProps | null;
+    onActionCancel: () => void;
 }
 
 export interface ProductActionPanelProps {

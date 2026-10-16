@@ -43,6 +43,7 @@ function ProductActionPanel({
                     key={selectedProduct?.name}
                     selectedProduct={selectedProduct}
                     onSubmit={onSubmit}
+                    onActionCancel={onActionCancel}
                     buttonText={
                         actionState === 'add'
                             ? 'Dodaj'
