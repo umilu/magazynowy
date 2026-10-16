@@ -8,7 +8,6 @@ function ProductList({
     onSelectProductForEdit,
     onSelectProductForDelete,
 }: ProductListProps) {
-
     const listProducts = products.map((product, index) => {
         return (
             <ProductItem
