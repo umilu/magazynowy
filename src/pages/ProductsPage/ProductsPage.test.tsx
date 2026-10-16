@@ -217,14 +217,15 @@ test('clears the form when adding a product during editing', async () => {
     expect(screen.getByLabelText('Ilość:')).toHaveValue(null);
 });
 
-test('closes panel when clicks cancel', async () => {
+test('close the panel when cancel is clicked', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
     await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
-    expect(screen.getByRole('heading', { name: 'Dodaj produkt' })).toBeInTheDocument();
-
+    await user.type(screen.getByLabelText('Nazwa produktu:'), 'Monitor');
+    await user.type(screen.getByLabelText('Ilość:'), '9');
     await user.click(screen.getByRole('button', { name: 'Anuluj' }));
 
+    expect(screen.queryByText('Monitor')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Dodaj produkt' })).not.toBeInTheDocument();
 });
