@@ -8,7 +8,7 @@ function SearchProductForm({
     setSortOrder,
 }: SearchProductFormProps) {
     return (
-        <form className="search-product-form">
+        <form className="search-product-form" onSubmit={(e) => e.preventDefault()}>
             <label className="visually-hidden" htmlFor="productSearch">
                 Szukaj produktu:
             </label>

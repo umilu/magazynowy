@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { test, expect } from 'vitest';
 import ProductsPage from './ProductsPage';
@@ -247,4 +247,12 @@ test.each([
     const unchangedRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
     expect(within(unchangedRow).getByText('Ilość: 10')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Edytuj produkt' })).toBeInTheDocument();
+});
+
+test('does not reload the page when the search form is submitted', () => {
+    render(<ProductsPage />);
+
+    const searchForm = screen.getByRole('searchbox').closest('form') as HTMLElement;
+
+    expect(fireEvent.submit(searchForm)).toBe(false);
 });
