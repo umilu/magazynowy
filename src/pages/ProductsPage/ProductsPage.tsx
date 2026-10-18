@@ -58,6 +58,12 @@ function ProductsPage() {
         if (!selectedProduct) {
             return;
         }
+        if (normalizeProductName(updatedProduct.name) === '') {
+            return;
+        }
+        if (updatedProduct.quantity < 0 || Number.isNaN(updatedProduct.quantity)) {
+            return;
+        }
         if (
             products.some(
                 (p) => normalizeProductName(p.name) === normalizeProductName(updatedProduct.name),

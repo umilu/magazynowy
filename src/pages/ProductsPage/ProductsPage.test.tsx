@@ -227,3 +227,24 @@ test('close the panel when cancel is clicked', async () => {
     expect(screen.queryByText('Monitor')).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Dodaj produkt' })).not.toBeInTheDocument();
 });
+
+test.each([
+    { reason: 'an empty name', name: '', quantity: '10' },
+    { reason: 'an empty quantity', name: 'Laptop', quantity: '' },
+    { reason: 'a negative quantity', name: 'Laptop', quantity: '-5' },
+])('does not save an edited product with $reason', async ({ name, quantity }) => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
+    await user.clear(screen.getByLabelText('Nazwa produktu:'));
+    await user.clear(screen.getByLabelText('Ilość:'));
+    if (name) await user.type(screen.getByLabelText('Nazwa produktu:'), name);
+    if (quantity) await user.type(screen.getByLabelText('Ilość:'), quantity);
+    await user.click(screen.getByRole('button', { name: 'Zapisz' }));
+
+    const unchangedRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    expect(within(unchangedRow).getByText('Ilość: 10')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Edytuj produkt' })).toBeInTheDocument();
+});
