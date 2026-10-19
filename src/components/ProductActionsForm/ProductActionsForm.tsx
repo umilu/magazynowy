@@ -22,7 +22,7 @@ function ProductActionsForm({
     function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         const submittingProduct = {
-            name: productName,
+            name: productName.trim(),
             quantity: quantity === '' ? NaN : Number(quantity),
         };
         onSubmit(submittingProduct);

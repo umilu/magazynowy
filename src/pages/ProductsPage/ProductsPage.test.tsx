@@ -256,3 +256,28 @@ test('does not reload the page when the search form is submitted', () => {
 
     expect(fireEvent.submit(searchForm)).toBe(false);
 });
+
+test('trims whitespace from a new product name', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: '+ Dodaj produkt' }));
+    await user.type(screen.getByLabelText('Nazwa produktu:'), '  Monitor  ');
+    await user.type(screen.getByLabelText('Ilość:'), '11');
+    await user.click(screen.getByRole('button', { name: 'Dodaj' }));
+
+    expect(screen.getByText('Monitor').textContent).toBe('Monitor');
+});
+
+test('trims whitespace from an edited product name', async () => {
+    render(<ProductsPage />);
+    const user = userEvent.setup();
+
+    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
+    await user.clear(screen.getByLabelText('Nazwa produktu:'));
+    await user.type(screen.getByLabelText('Nazwa produktu:'), '  Laptop  ');
+    await user.click(screen.getByRole('button', { name: 'Zapisz' }));
+
+    expect(screen.getByText('Laptop').textContent).toBe('Laptop');
+});
