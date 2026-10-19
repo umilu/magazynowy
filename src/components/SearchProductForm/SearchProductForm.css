@@ -45,3 +45,9 @@
     stroke-linejoin: round;
     pointer-events: none;
 }
+
+@media (max-width: 600px) {
+    .search-product-form {
+        flex-basis: 100%;
+    }
+}

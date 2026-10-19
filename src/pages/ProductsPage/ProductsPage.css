@@ -29,4 +29,18 @@ main h2 + p {
     .products-intro {
         display: none;
     }
+
+    .products-controls {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .products-controls button {
+        flex: 1;
+        height: 40px;
+    }
+
+    .add-product-button {
+        margin-left: 0;
+    }
 }
