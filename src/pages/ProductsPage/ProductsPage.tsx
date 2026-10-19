@@ -120,13 +120,19 @@ function ProductsPage() {
                 <p>Zarządzaj swoim magazynem - dodawaj, edytuj, usuwaj swoje produkty.</p>
             </section>
             <div className="products-controls">
-                <SearchProductForm
-                    searchTerm={searchTerm}
-                    sortOrder={sortOrder}
-                    setSortOrder={setSortOrder}
-                    setSearchTerm={setSearchTerm}
-                />
-                <button className="blue-button" type="button" onClick={handleOpenAddPanel}>
+                <SearchProductForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                <button
+                    className="white-button"
+                    type="button"
+                    onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                >
+                    Sortuj {sortOrder === 'asc' ? 'malejąco' : 'rosnąco'}
+                </button>
+                <button
+                    className="blue-button add-product-button"
+                    type="button"
+                    onClick={handleOpenAddPanel}
+                >
                     + Dodaj produkt
                 </button>
             </div>

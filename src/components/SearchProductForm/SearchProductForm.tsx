@@ -1,14 +1,9 @@
 import type { SearchProductFormProps } from '../../types/product';
 import './SearchProductForm.css';
 
-function SearchProductForm({
-    searchTerm,
-    setSearchTerm,
-    sortOrder,
-    setSortOrder,
-}: SearchProductFormProps) {
+function SearchProductForm({ searchTerm, setSearchTerm }: SearchProductFormProps) {
     return (
-        <form className="search-product-form" onSubmit={(e) => e.preventDefault()}>
+        <form role="search" className="search-product-form" onSubmit={(e) => e.preventDefault()}>
             <label className="visually-hidden" htmlFor="productSearch">
                 Szukaj produktu:
             </label>
@@ -26,13 +21,6 @@ function SearchProductForm({
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <button
-                className="white-button"
-                type="button"
-                onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-            >
-                Sortuj {sortOrder === 'asc' ? 'malejąco' : 'rosnąco'}
-            </button>
         </form>
     );
 }

@@ -23,8 +23,6 @@ export interface AddProductFormProps {
 export interface SearchProductFormProps {
     searchTerm: string;
     setSearchTerm: (term: string) => void;
-    sortOrder: 'asc' | 'desc';
-    setSortOrder: (sortOrder: 'asc' | 'desc') => void;
 }
 
 export interface ProductActionsFormProps {

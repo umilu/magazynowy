@@ -1,11 +1,8 @@
 .search-product-form {
-    display: flex;
     flex: 1;
-    gap: 12px;
 }
 
 .search-product-form input {
-    flex: 1;
     border-radius: 8px;
     border: 1px solid #d1d5db;
 }
