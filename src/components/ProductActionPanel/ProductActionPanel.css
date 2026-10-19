@@ -7,7 +7,6 @@
     background-color: #ffffff;
     overflow: hidden;
     padding: 20px clamp(10px, 4vw, 20px);
-    /* width: 400px; */
     width: min(100%, 400px);
     margin: 0 auto;
 }
