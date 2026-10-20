@@ -23,7 +23,7 @@ export interface SearchProductFormProps {
 
 export interface ProductActionsFormProps {
     onSubmit: (product: ProductProps) => void;
-    buttonText: 'Dodaj' | 'Zapisz' | undefined;
+    buttonText: 'Dodaj' | 'Zapisz';
     selectedProduct: ProductProps | null;
     onActionCancel: () => void;
 }

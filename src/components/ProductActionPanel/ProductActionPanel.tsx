@@ -44,13 +44,7 @@ function ProductActionPanel({
                     selectedProduct={selectedProduct}
                     onSubmit={onSubmit}
                     onActionCancel={onActionCancel}
-                    buttonText={
-                        actionState === 'add'
-                            ? 'Dodaj'
-                            : actionState === 'edit'
-                              ? 'Zapisz'
-                              : undefined
-                    }
+                    buttonText={actionState === 'add' ? 'Dodaj' : 'Zapisz'}
                 />
             )}
         </div>
