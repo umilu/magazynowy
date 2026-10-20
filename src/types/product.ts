@@ -16,10 +16,6 @@ export interface ProductListProps {
     onSelectProductForDelete: (product: ProductProps) => void;
 }
 
-export interface AddProductFormProps {
-    onAddProduct: (product: ProductProps) => void;
-}
-
 export interface SearchProductFormProps {
     searchTerm: string;
     setSearchTerm: (term: string) => void;
