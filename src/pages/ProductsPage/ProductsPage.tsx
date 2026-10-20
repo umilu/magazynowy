@@ -89,13 +89,14 @@ function ProductsPage() {
     }
 
     function handleDeleteProduct() {
-        selectedProduct &&
+        if (selectedProduct) {
             setProducts((prevProducts) =>
                 prevProducts.filter(
                     (p) =>
                         normalizeProductName(p.name) !== normalizeProductName(selectedProduct.name),
                 ),
             );
+        }
         setSelectedProduct(null);
         setActionState(null);
     }
