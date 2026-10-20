@@ -147,13 +147,13 @@ function ProductsPage() {
                 <ProductActionPanel
                     selectedProduct={selectedProduct}
                     onDelete={handleDeleteProduct}
-                    onSubmit={
-                        actionState === 'edit'
-                            ? handleUpdateProduct
-                            : actionState === 'add'
-                              ? handleAddProduct
-                              : handleDeleteProduct
-                    }
+                    onSubmit={(product) => {
+                        if (actionState === 'edit') {
+                            handleUpdateProduct(product);
+                        } else if (actionState === 'add') {
+                            handleAddProduct(product);
+                        }
+                    }}
                     actionState={actionState}
                     onActionCancel={handleActionCancel}
                 />
