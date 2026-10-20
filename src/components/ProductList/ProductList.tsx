@@ -8,10 +8,10 @@ function ProductList({
     onSelectProductForEdit,
     onSelectProductForDelete,
 }: ProductListProps) {
-    const listProducts = products.map((product, index) => {
+    const listProducts = products.map((product) => {
         return (
             <ProductItem
-                key={index}
+                key={product.name}
                 product={product}
                 onSelectProductForEdit={onSelectProductForEdit}
                 onSelectProductForDelete={onSelectProductForDelete}
@@ -19,16 +19,12 @@ function ProductList({
         );
     });
 
-    return (
-        <div className="product-list">
-            {products.length > 0 ? (
-                listProducts
-            ) : allProducts.length === 0 ? (
-                <p>Brak produktów</p>
-            ) : (
-                <p>Brak pasujących wyników</p>
-            )}
-        </div>
+    return products.length > 0 ? (
+        <ul className="product-list">{listProducts}</ul>
+    ) : allProducts.length === 0 ? (
+        <p>Brak produktów</p>
+    ) : (
+        <p>Brak pasujących wyników</p>
     );
 }
 

@@ -52,7 +52,7 @@ test('closes the panel and deletes the product after confirmation', async () => 
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Usuń' }));
     await user.click(screen.getByRole('button', { name: 'Tak' }));
 
@@ -66,7 +66,7 @@ test('keeps the product when deletion is cancelled', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Usuń' }));
     await user.click(screen.getByRole('button', { name: 'Nie' }));
 
@@ -93,7 +93,7 @@ test('shows an empty state message when all products are deleted', async () => {
     const user = userEvent.setup();
 
     for (const name of ['Laptop', 'Mysz', 'Klawiatura']) {
-        const row = screen.getByText(name).closest('.product-item') as HTMLElement;
+        const row = screen.getByText(name).closest('li') as HTMLElement;
         await user.click(within(row).getByRole('button', { name: 'Usuń' }));
         await user.click(screen.getByRole('button', { name: 'Tak' }));
     }
@@ -133,7 +133,7 @@ test('edits a product quantity using a prefilled form', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
@@ -143,7 +143,7 @@ test('edits a product quantity using a prefilled form', async () => {
     await user.type(screen.getByLabelText('Ilość:'), '11');
     await user.click(screen.getByRole('button', { name: 'Zapisz' }));
 
-    const updatedRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const updatedRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     expect(within(updatedRow).getByText('Ilość: 11')).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Edytuj produkt' })).not.toBeInTheDocument();
 });
@@ -164,7 +164,7 @@ test.each([
         await user.type(screen.getByLabelText('Ilość:'), quantity);
         await user.click(screen.getByRole('button', { name: 'Dodaj' }));
 
-        const productRow = screen.getByText(name).closest('.product-item') as HTMLElement;
+        const productRow = screen.getByText(name).closest('li') as HTMLElement;
         expect(within(productRow).getByText(status)).toBeInTheDocument();
     },
 );
@@ -186,13 +186,13 @@ test('updates the edit form when another product is selected for editing', async
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
     expect(screen.getByLabelText('Ilość:')).toHaveValue(10);
 
-    const mouseRow = screen.getByText('Mysz').closest('.product-item') as HTMLElement;
+    const mouseRow = screen.getByText('Mysz').closest('li') as HTMLElement;
     await user.click(within(mouseRow).getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Mysz');
@@ -203,7 +203,7 @@ test('clears the form when adding a product during editing', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
 
     expect(screen.getByLabelText('Nazwa produktu:')).toHaveValue('Laptop');
@@ -236,7 +236,7 @@ test.each([
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
     await user.clear(screen.getByLabelText('Nazwa produktu:'));
     await user.clear(screen.getByLabelText('Ilość:'));
@@ -244,7 +244,7 @@ test.each([
     if (quantity) await user.type(screen.getByLabelText('Ilość:'), quantity);
     await user.click(screen.getByRole('button', { name: 'Zapisz' }));
 
-    const unchangedRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const unchangedRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     expect(within(unchangedRow).getByText('Ilość: 10')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Edytuj produkt' })).toBeInTheDocument();
 });
@@ -273,7 +273,7 @@ test('trims whitespace from an edited product name', async () => {
     render(<ProductsPage />);
     const user = userEvent.setup();
 
-    const laptopRow = screen.getByText('Laptop').closest('.product-item') as HTMLElement;
+    const laptopRow = screen.getByText('Laptop').closest('li') as HTMLElement;
     await user.click(within(laptopRow).getByRole('button', { name: 'Edytuj' }));
     await user.clear(screen.getByLabelText('Nazwa produktu:'));
     await user.type(screen.getByLabelText('Nazwa produktu:'), '  Laptop  ');

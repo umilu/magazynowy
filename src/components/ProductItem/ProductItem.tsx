@@ -14,7 +14,7 @@ function ProductItem({
               : 'Dostępny';
 
     return (
-        <div className="product-item">
+        <li className="product-item">
             <div className="product-info">
                 <p>{product.name}</p>
                 <span className="product-item-quantity">Ilość: {product.quantity}</span>
@@ -38,7 +38,7 @@ function ProductItem({
                     Usuń
                 </button>
             </div>
-        </div>
+        </li>
     );
 }
 
