@@ -1,19 +1,19 @@
-export interface ProductProps {
+export interface Product {
     name: string;
     quantity: number;
 }
 
 export interface ProductItemProps {
-    product: ProductProps;
-    onSelectProductForEdit: (product: ProductProps) => void;
-    onSelectProductForDelete: (product: ProductProps) => void;
+    product: Product;
+    onSelectProductForEdit: (product: Product) => void;
+    onSelectProductForDelete: (product: Product) => void;
 }
 
 export interface ProductListProps {
-    products: ProductProps[];
-    allProducts: ProductProps[];
-    onSelectProductForEdit: (product: ProductProps) => void;
-    onSelectProductForDelete: (product: ProductProps) => void;
+    products: Product[];
+    allProducts: Product[];
+    onSelectProductForEdit: (product: Product) => void;
+    onSelectProductForDelete: (product: Product) => void;
 }
 
 export interface SearchProductFormProps {
@@ -22,16 +22,16 @@ export interface SearchProductFormProps {
 }
 
 export interface ProductActionsFormProps {
-    onSubmit: (product: ProductProps) => void;
+    onSubmit: (product: Product) => void;
     buttonText: 'Dodaj' | 'Zapisz';
-    selectedProduct: ProductProps | null;
+    selectedProduct: Product | null;
     onActionCancel: () => void;
 }
 
 export interface ProductActionPanelProps {
-    onSubmit: (product: ProductProps) => void;
+    onSubmit: (product: Product) => void;
     actionState: 'add' | 'edit' | 'delete' | null;
-    selectedProduct: ProductProps | null;
+    selectedProduct: Product | null;
     onDelete: () => void;
     onActionCancel: () => void;
 }

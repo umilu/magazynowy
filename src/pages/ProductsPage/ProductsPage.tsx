@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import type { ProductProps } from '../../types/product';
+import type { Product } from '../../types/product';
 import ProductList from '../../components/ProductList/ProductList';
 import ProductActionPanel from '../../components/ProductActionPanel/ProductActionPanel';
 import SearchProductForm from '../../components/SearchProductForm/SearchProductForm';
 import './ProductsPage.css';
 
 function ProductsPage() {
-    const [products, setProducts] = useState<ProductProps[]>([
+    const [products, setProducts] = useState<Product[]>([
         { name: 'Laptop', quantity: 10 },
         { name: 'Mysz', quantity: 25 },
         { name: 'Klawiatura', quantity: 15 },
     ]);
 
-    const [selectedProduct, setSelectedProduct] = useState<ProductProps | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [actionState, setActionState] = useState<'add' | 'edit' | 'delete' | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -26,7 +26,7 @@ function ProductsPage() {
         setSelectedProduct(null);
     }
 
-    function handleAddProduct(addedProduct: ProductProps) {
+    function handleAddProduct(addedProduct: Product) {
         if (normalizeProductName(addedProduct.name) === '') {
             return;
         }
@@ -49,12 +49,12 @@ function ProductsPage() {
         setActionState(null);
     }
 
-    function handleSelectProductForEdit(product: ProductProps) {
+    function handleSelectProductForEdit(product: Product) {
         setActionState('edit');
         setSelectedProduct(product);
     }
 
-    function handleUpdateProduct(updatedProduct: ProductProps) {
+    function handleUpdateProduct(updatedProduct: Product) {
         if (!selectedProduct) {
             return;
         }
@@ -83,7 +83,7 @@ function ProductsPage() {
         setActionState(null);
     }
 
-    function handleSelectProductForDelete(product: ProductProps) {
+    function handleSelectProductForDelete(product: Product) {
         setActionState('delete');
         setSelectedProduct(product);
     }
