@@ -1,0 +1,37 @@
+# Lokalne bazy danych dla backendu. Hasła są tylko do pracy lokalnej.
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: magazynowy
+      POSTGRES_PASSWORD: magazynowy
+      POSTGRES_DB: magazynowy
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U magazynowy -d magazynowy']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Osobna baza do testów e2e: dane trzymane w pamięci, znikają po zatrzymaniu kontenera.
+  db-test:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: magazynowy
+      POSTGRES_PASSWORD: magazynowy
+      POSTGRES_DB: magazynowy_test
+    ports:
+      - '127.0.0.1:5433:5432'
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U magazynowy -d magazynowy_test']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
