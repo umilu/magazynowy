@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
+import { PrismaService } from './../src/prisma/prisma.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
@@ -21,6 +22,16 @@ describe('AppController (e2e)', () => {
       .get('/')
       .expect(200)
       .expect('Hello World!');
+  });
+
+  it('uses the test database', async () => {
+    const prisma = app.get(PrismaService);
+
+    const [{ current_database }] = await prisma.$queryRaw<
+      { current_database: string }[]
+    >`SELECT current_database()`;
+
+    expect(current_database).toBe('magazynowy_test');
   });
 
   afterEach(async () => {

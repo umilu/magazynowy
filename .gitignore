@@ -25,3 +25,9 @@ dist-ssr
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Environment variables
+.env
+
+# Prisma generated client
+backend/src/generated/
