@@ -41,4 +41,19 @@ describe('Products (e2e)', () => {
       expect.objectContaining({ name: 'Mysz', quantity: 25 }),
     ]);
   });
+
+  it('creates a product', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/products')
+      .send({ name: 'Monitor', quantity: 5 });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        name: 'Monitor',
+        quantity: 5,
+      }),
+    );
+  });
 });
