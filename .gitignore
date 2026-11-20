@@ -28,6 +28,3 @@ dist-ssr
 
 # Environment variables
 .env
-
-# Prisma generated client
-backend/src/generated/
