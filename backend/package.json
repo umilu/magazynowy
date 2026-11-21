@@ -1,21 +1,23 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "node --env-file=.env --watch src/server.ts",
-    "start": "node --env-file=.env src/server.ts",
-    "typecheck": "tsc",
-    "db": "docker compose exec db psql -U magazynowy -d magazynowy",
-    "db:schema": "docker compose exec -T db psql -U magazynowy -d magazynowy -v ON_ERROR_STOP=1 < db/schema.sql"
-  },
-  "dependencies": {
-    "pg": "^8.23.1"
-  },
-  "devDependencies": {
-    "@types/node": "^24.19.2",
-    "@types/pg": "^8.23.1",
-    "typescript": "^7.0.2"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "node --env-file=.env --watch src/server.ts",
+        "start": "node --env-file=.env src/server.ts",
+        "typecheck": "tsc",
+        "db": "docker compose exec db psql -U magazynowy -d magazynowy",
+        "db:schema": "docker compose exec -T db psql -U magazynowy -d magazynowy -v ON_ERROR_STOP=1 < db/schema.sql"
+    },
+    "dependencies": {
+        "pg": "^8.23.1"
+    },
+    "devDependencies": {
+        "@types/node": "^24.19.2",
+        "@types/pg": "^8.23.1",
+        "prettier": "^3.10.1",
+        "prettier-plugin-sql": "^0.20.0",
+        "typescript": "^7.0.2"
+    }
 }
