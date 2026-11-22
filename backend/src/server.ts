@@ -3,6 +3,7 @@ import { pool } from './db.ts';
 
 const server = http.createServer(async (req, res) => {
     try {
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
         if (req.method === 'GET' && req.url === '/products') {
             const result = await pool.query('SELECT id, name, quantity FROM products ORDER BY id');
 
